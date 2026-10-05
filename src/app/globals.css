@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors */
+  --color-background: #0b0b0c;
+  --color-surface: #141416;
+  --color-card: #1a1a1d;
+  --color-border: #2a2a2e;
+  --color-gold: #c9a24d;
+  --color-gold-light: #e6c675;
+  --color-foreground: #f5f1e8;
+  --color-muted: #a1a1a6;
+
+  /* Fonts */
+  --font-heading: var(--font-playfair), serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-arabic: var(--font-cairo), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Arabic (RTL) */
+html[dir="rtl"] body {
+  font-family: var(--font-arabic);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.01em;
+}
+
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3 {
+  font-family: var(--font-arabic);
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(90deg, #c9a24d, #e6c675, #c9a24d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Primary button */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  color: #0b0b0c;
+  background: linear-gradient(135deg, #c9a24d, #e6c675);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 162, 77, 0.35);
+}
+
+/* Outline button */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  background: var(--color-gold);
+  color: #0b0b0c;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+}
+
+/* Section spacing */
+.section {
+  padding-block: 5rem;
+}
+@media (max-width: 768px) {
+  .section {
+    padding-block: 3rem;
+  }
+}
+
+/* Gold scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 6px; }
