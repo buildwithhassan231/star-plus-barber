@@ -16,7 +16,7 @@ const Header = () => {
   ]
 
   return (
-    <header className="w-full bg-white sticky top-0 z-50 shadow-sm">
+    <header className="w-full bg-background/95 backdrop-blur-md sticky top-0 z-50 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-28 md:h-32">
 
@@ -26,11 +26,7 @@ const Header = () => {
               <Link
                 key={index}
                 href={link.href}
-                className={`text-xs xl:text-sm font-semibold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
-                  index === 0
-                    ? 'text-red-600 hover:text-red-700'
-                    : 'text-gray-800 hover:text-red-600'
-                }`}
+                className={`nav-link ${index === 0 ? 'nav-link-active' : ''}`}
               >
                 {link.name}
               </Link>
@@ -57,20 +53,20 @@ const Header = () => {
               <Link
                 key={index}
                 href={link.href}
-                className="text-xs xl:text-sm font-semibold tracking-wider uppercase text-gray-800 hover:text-red-600 transition-colors duration-200 whitespace-nowrap"
+                className="nav-link"
               >
                 {link.name}
               </Link>
             ))}
 
             {/* Divider */}
-            <span className="text-gray-300 select-none">|</span>
+            <span className="text-border select-none">|</span>
 
             {/* Language Switch */}
             <div className="flex items-center gap-1.5 text-xs font-bold tracking-wider">
-              <span className="text-gray-800 cursor-pointer hover:text-red-600 transition-colors uppercase">EN</span>
-              <span className="text-gray-300 select-none">|</span>
-              <span className="text-gray-800 cursor-pointer hover:text-red-600 transition-colors">عربي</span>
+              <span className="nav-link cursor-pointer uppercase">EN</span>
+              <span className="text-border select-none">|</span>
+              <span className="nav-link cursor-pointer">عربي</span>
             </div>
 
             {/* Book Now */}

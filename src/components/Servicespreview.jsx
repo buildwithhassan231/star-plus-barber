@@ -1,14 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { FaCut, FaBezierCurve, FaSpa, FaUserTie, FaCheck, FaArrowRight } from 'react-icons/fa'
-import { FaScissors, FaUserDoctor } from 'react-icons/fa6'
 import { GiRazorBlade, GiComb } from 'react-icons/gi'
 
 const Servicespreview = () => {
   const services = [
     {
       id: '01',
-      icon: <FaCut className="text-2xl text-amber-400" />,
+      icon: <FaCut className="text-2xl text-gold" />,
       name: 'Royal Haircut & Style',
       price: '120 SAR',
       popular: true,
@@ -16,7 +15,7 @@ const Servicespreview = () => {
     },
     {
       id: '02',
-      icon: <GiRazorBlade className="text-2xl text-amber-400" />,
+      icon: <GiRazorBlade className="text-2xl text-gold" />,
       name: 'Beard Sculpting & Hot Towel',
       price: '80 SAR',
       popular: false,
@@ -24,7 +23,7 @@ const Servicespreview = () => {
     },
     {
       id: '03',
-      icon: <GiComb className="text-2xl text-amber-400" />,
+      icon: <GiComb className="text-2xl text-gold" />,
       name: 'Hair & Beard Combo',
       price: '180 SAR',
       popular: true,
@@ -32,7 +31,7 @@ const Servicespreview = () => {
     },
     {
       id: '04',
-      icon: <FaSpa className="text-2xl text-amber-400" />,
+      icon: <FaSpa className="text-2xl text-gold" />,
       name: 'Executive Facial & Scrub',
       price: '150 SAR',
       popular: false,
@@ -40,7 +39,7 @@ const Servicespreview = () => {
     },
     {
       id: '05',
-      icon: <FaBezierCurve className="text-2xl text-amber-400" />,
+      icon: <FaBezierCurve className="text-2xl text-gold" />,
       name: 'Hair Keratin Treatment',
       price: '250 SAR',
       popular: false,
@@ -48,7 +47,7 @@ const Servicespreview = () => {
     },
     {
       id: '06',
-      icon: <FaUserTie className="text-2xl text-amber-400" />,
+      icon: <FaUserTie className="text-2xl text-gold" />,
       name: 'VIP Groom Package',
       price: '350 SAR',
       popular: false,
@@ -57,23 +56,23 @@ const Servicespreview = () => {
   ]
 
   return (
-    <section className="w-full bg-zinc-950 text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      
-      {/* Background Decorative Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
+    <section className="section w-full bg-background text-foreground px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+
+      {/* Background glow — decorative only */}
+      <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-amber-500 mb-2 block">
+          <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-gold mb-2 block">
             Crafted For Royalty
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-4">
-            Our Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">Services</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">
+            Our Featured <span className="text-gold-gradient">Services</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-amber-400 to-amber-600 mx-auto rounded-full mb-4" />
-          <p className="text-zinc-400 text-sm sm:text-base">
+          <div className="w-16 h-1 bg-gold mx-auto rounded-full mb-4" />
+          <p className="text-muted text-sm sm:text-base">
             Experience world-class barbering, precision grooming, and relaxing spa treatments in Riyadh.
           </p>
         </div>
@@ -83,40 +82,40 @@ const Servicespreview = () => {
           {services.map((service) => (
             <div
               key={service.id}
-              className="relative group bg-zinc-900/80 border border-zinc-800/80 hover:border-amber-500/50 rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between"
+              className="card-hover relative group bg-card border border-border rounded-xl p-6 sm:p-8 flex flex-col justify-between hover:shadow-2xl transition-all duration-300"
             >
               {service.popular && (
-                <div className="absolute -top-3 right-6 bg-gradient-to-r from-amber-500 to-amber-700 text-white text-[10px] uppercase tracking-wider font-extrabold px-3 py-1 rounded-full shadow-lg">
+                <div className="absolute -top-3 end-6 bg-gold text-background text-[10px] uppercase tracking-wider font-extrabold px-3 py-1 rounded-full shadow-lg">
                   Most Popular
                 </div>
               )}
 
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-500/20 group-hover:border-amber-500/40 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-gold/20 group-hover:border-gold/40 transition-all duration-300">
                     {service.icon}
                   </div>
-                  <div className="text-right">
-                    <span className="text-xl sm:text-2xl font-black text-amber-400">
+                  <div className="text-end">
+                    <span className="text-xl sm:text-2xl font-black text-gold">
                       {service.price}
                     </span>
                   </div>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-white mb-3 group-hover:text-amber-400 transition-colors">
+                <h3 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-foreground mb-3 group-hover:text-gold transition-colors">
                   {service.name}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-muted leading-relaxed mb-6">
                   {service.description}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-500 font-medium">
-                <span className="flex items-center gap-1.5 text-zinc-400">
-                  <FaCheck className="text-amber-500 text-xs" /> Premium Products
+              <div className="pt-4 border-t border-border flex items-center justify-between text-xs text-muted font-medium">
+                <span className="flex items-center gap-1.5">
+                  <FaCheck className="text-gold text-xs" /> Premium Products
                 </span>
-                <span className="text-zinc-600 font-bold group-hover:text-amber-500/60 transition-colors">
+                <span className="font-bold group-hover:text-gold/60 transition-colors">
                   #{service.id}
                 </span>
               </div>
@@ -124,13 +123,10 @@ const Servicespreview = () => {
           ))}
         </div>
 
-        {/* View All Services CTA Button */}
+        {/* CTA */}
         <div className="mt-12 md:mt-16 text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-zinc-900 hover:bg-amber-500 text-white hover:text-black font-extrabold text-sm uppercase tracking-wider rounded-full border border-amber-500/40 hover:border-amber-500 transition-all duration-300 shadow-lg group"
-          >
-            <span>View All Services & Menu</span>
+          <Link href="/services" className="btn-outline inline-flex items-center gap-3 text-sm uppercase tracking-wider rounded-full px-8 py-4 group">
+            <span>View All Services &amp; Menu</span>
             <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

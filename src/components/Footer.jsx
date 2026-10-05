@@ -3,156 +3,188 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { FaInstagram, FaYelp, FaChevronUp } from 'react-icons/fa'
+import { FaChevronUp, FaMapMarkerAlt, FaPhone, FaClock } from 'react-icons/fa'
+import { SiInstagram, SiSnapchat, SiTiktok } from 'react-icons/si'
+
+const quickLinks = [
+  { name: 'Home',              href: '/' },
+  { name: 'Services & Prices', href: '/services' },
+  { name: 'Our Barbers',       href: '/barbers' },
+  { name: 'Gallery',           href: '/gallery' },
+  { name: 'About Us',          href: '/about' },
+  { name: 'Book Appointment',  href: '/book' },
+  { name: 'Contact',           href: '/contact' },
+]
+
+const socials = [
+  {
+    label: 'Instagram',
+    href: 'https://instagram.com',
+    icon: <SiInstagram />,
+    hover: 'hover:text-pink-400 hover:border-pink-400',
+  },
+  {
+    label: 'Snapchat',
+    href: 'https://snapchat.com',
+    icon: <SiSnapchat />,
+    hover: 'hover:text-yellow-300 hover:border-yellow-300',
+  },
+  {
+    label: 'TikTok',
+    href: 'https://tiktok.com',
+    icon: <SiTiktok />,
+    hover: 'hover:text-foreground hover:border-foreground',
+  },
+]
+
+const hours = [
+  { day: 'Mon – Thu', time: '10:00 AM – 7:00 PM' },
+  { day: 'Friday',    time: '10:00 AM – TBD' },
+  { day: 'Saturday',  time: 'CLOSED' },
+  { day: 'Sunday',    time: '10:00 AM – 5:00 PM' },
+]
 
 const Footer = () => {
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Services & Prices', href: '/services' },
-    { name: 'Our Barbers (Team)', href: '/barbers' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'About Us', href: '/about' },
-    { name: 'Book Appointment', href: '/book' },
-    { name: 'Contact & Location', href: '/contact' },
-  ]
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <footer className="w-full bg-black text-white relative font-sans pt-12 pb-6 px-4 md:px-8 lg:px-16">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Main Grid Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pb-12">
-          
-          {/* Left Column: Logo */}
-          <div className="lg:col-span-4 flex justify-center lg:justify-start">
-            <Link href="/" className="relative block">
+    <footer className="relative bg-surface border-t border-border overflow-hidden">
+
+      {/* ── Ambient gold glow ── */}
+      <div className="absolute bottom-0 start-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gold/5 blur-[120px] rounded-full pointer-events-none" />
+
+      {/* ── Top gold accent line ── */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+
+        {/* ── Main grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-12 border-b border-border">
+
+          {/* Col 1 — Brand */}
+          <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="inline-block">
               <Image
-                src="/footerlogo.png"
-                alt="Barber Shop Logo"
-                width={220}
-                height={220}
-                className="w-48 bg-green md:w-56 lg:w-64 h-auto object-contain"
+                src="/logo.jpg"
+                alt="Star Plus Barber"
+                width={140}
+                height={70}
+                className="h-16 w-auto object-contain"
                 priority
               />
             </Link>
+            <p className="text-muted text-sm leading-relaxed max-w-xs">
+              Riyadh&apos;s most premium barbering destination — where precision craft meets luxury grooming.
+            </p>
+            <p className="text-muted text-sm leading-relaxed max-w-xs">
+              Walk in and leave looking your absolute best. Open daily, late night.
+            </p>
+
+            {/* Social icons */}
+            <div className="flex items-center gap-3 pt-1">
+              {socials.map(({ label, href, icon, hover }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className={`w-9 h-9 rounded-full border border-border text-muted flex items-center justify-center text-base transition-all duration-300 hover:scale-110 ${hover}`}
+                >
+                  {icon}
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Right Area: Headline + Content Columns */}
-          <div className="lg:col-span-8 flex flex-col space-y-8">
-            
-            {/* Top Heading */}
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-wider text-white text-center lg:text-left uppercase">
-              WHERE STYLE MEETS TRADITION IN PARK SLOPE, BROOKLYN.
-            </h2>
-
-            {/* Content Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 items-start">
-              
-              {/* Column 1: Navigation Links & Location Info */}
-              <div className="flex flex-col space-y-3">
-                <h3 className="text-amber-500 font-bold uppercase tracking-wider text-sm md:text-base">
-                  RESIDENT BARBER
-                </h3>
-                <div className="text-gray-300 text-sm space-y-1">
-                  <p className="font-medium">169 Lincoln Pl.</p>
-                  <p className="font-medium">Brooklyn, NY 11217</p>
-                </div>
-                <p className="text-white font-extrabold text-lg pt-1">
-                  (347) 335-0777
-                </p>
-
-                {/* Quick Navigation Links */}
-                <div className="pt-4 border-t border-gray-800 flex flex-col space-y-2">
-                  {navLinks.map((link, index) => (
-                    <Link
-                      key={index}
-                      href={link.href}
-                      className="text-xs text-gray-400 hover:text-amber-500 transition-colors uppercase tracking-wide"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Column 2: Hours Section with Dotted Separators */}
-              <div className="flex flex-col space-y-3">
-                <h3 className="text-amber-500 font-bold uppercase tracking-wider text-sm md:text-base">
-                  OUR HOURS
-                </h3>
-                <div className="text-xs md:text-sm text-gray-200 space-y-2.5">
-                  <div className="flex justify-between items-center">
-                    <span>Monday - Thursday</span>
-                    <span className="font-semibold">10:00 AM - 7:00 PM</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-dotted border-gray-700 pb-1">
-                    <span>Friday</span>
-                    <span className="font-semibold">10:00 AM - TBD</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-dotted border-gray-700 pb-1">
-                    <span>Saturday</span>
-                    <span className="font-semibold text-gray-400">CLOSED</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-dotted border-gray-700 pb-1">
-                    <span>Sunday</span>
-                    <span className="font-semibold">10:00 AM - 5:00 PM</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Column 3: Button & Social Icons */}
-              <div className="flex flex-col items-start space-y-6">
-                <Link
-                  href="/book"
-                  className="w-full sm:w-auto text-center bg-amber-900/90 hover:bg-amber-800 text-white font-extrabold text-sm uppercase tracking-wider py-3.5 px-6 rounded-full transition-all duration-300 shadow-md border border-amber-700/50"
-                >
-                  BOOK APPOINTMENT
-                </Link>
-
-                <div className="flex items-center space-x-4 text-amber-500 text-xl pl-2">
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-amber-400 transition-colors"
+          {/* Col 2 — Quick Links */}
+          <div className="flex flex-col gap-4">
+            <h3 className="text-foreground font-bold uppercase tracking-widest text-xs after:block after:w-8 after:h-[2px] after:bg-gold after:mt-2">
+              Quick Links
+            </h3>
+            <ul className="flex flex-col gap-2">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-muted text-sm hover:text-gold transition-colors duration-200 flex items-center gap-2 group"
                   >
-                    <FaInstagram />
-                  </a>
-                  <a
-                    href="https://yelp.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-amber-400 transition-colors"
-                  >
-                    <FaYelp />
-                  </a>
-                </div>
-              </div>
+                    <span className="w-1 h-1 rounded-full bg-gold/40 group-hover:bg-gold transition-colors" />
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
+          {/* Col 3 — Hours */}
+          <div className="flex flex-col gap-4">
+            <h3 className="text-foreground font-bold uppercase tracking-widest text-xs after:block after:w-8 after:h-[2px] after:bg-gold after:mt-2">
+              Hours
+            </h3>
+            <ul className="flex flex-col gap-2.5">
+              {hours.map(({ day, time }) => (
+                <li key={day} className="flex justify-between items-center text-xs border-b border-border/50 pb-2 last:border-0">
+                  <span className="text-muted">{day}</span>
+                  <span className={`font-semibold ${time === 'CLOSED' ? 'text-red-400' : time.includes('3 AM') ? 'text-gold' : 'text-foreground'}`}>
+                    {time}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center gap-2 mt-1 px-3 py-2 rounded-lg bg-gold/10 border border-gold/20">
+              <FaClock className="text-gold text-xs flex-shrink-0" />
+              <span className="text-gold text-xs font-semibold">Open daily till 3:00 AM</span>
+            </div>
+          </div>
+
+          {/* Col 4 — Contact & Map */}
+          <div className="flex flex-col gap-4">
+            <h3 className="text-foreground font-bold uppercase tracking-widest text-xs after:block after:w-8 after:h-[2px] after:bg-gold after:mt-2">
+              Find Us
+            </h3>
+
+            <div className="flex flex-col gap-3 text-sm">
+              <div className="flex items-start gap-2.5 text-muted">
+                <FaMapMarkerAlt className="text-gold mt-0.5 flex-shrink-0" />
+                <span>Olaya District, Riyadh<br />Saudi Arabia</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-muted">
+                <FaPhone className="text-gold flex-shrink-0" />
+                <a href="tel:+966500000000" className="hover:text-gold transition-colors">
+                  +966 50 000 0000
+                </a>
+              </div>
             </div>
 
+            {/* Google Maps embed placeholder */}
+            <a
+              href="https://maps.google.com"
+              target="_blank"
+              rel="noreferrer"
+              className="group relative mt-1 rounded-xl overflow-hidden border border-border hover:border-gold transition-colors duration-300 block"
+            >
+              <div className="w-full h-28 bg-card flex items-center justify-center gap-2 text-muted group-hover:text-gold transition-colors text-xs font-semibold uppercase tracking-wider">
+                <FaMapMarkerAlt className="text-gold text-sm" />
+                View on Google Maps
+              </div>
+            </a>
           </div>
 
         </div>
 
-        {/* Bottom Copyright Section */}
-        <div className="border-t border-gray-900 pt-6 text-center text-xs text-gray-400 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-          <p>
-            © 2026 Resident Barber. All Rights Reserved. Website Designed by{' '}
-            <span className="text-gray-300 font-medium">Bracha Designs</span>.
-          </p>
+        {/* ── Bottom bar ── */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+          <p>© 2026 <span className="text-gold font-semibold">Star Plus Barber</span>. All rights reserved.</p>
+          <p>Designed by <span className="text-foreground font-medium">Hassan</span></p>
 
-          {/* Scroll To Top Arrow Button */}
+          {/* Scroll to top */}
           <button
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="text-gray-400 hover:text-white transition-colors p-2"
+            className="w-9 h-9 rounded-full border border-border text-muted hover:text-gold hover:border-gold flex items-center justify-center transition-all duration-300 hover:scale-110"
           >
-            <FaChevronUp className="text-base" />
+            <FaChevronUp className="text-xs" />
           </button>
         </div>
 
