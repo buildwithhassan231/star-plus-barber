@@ -45,9 +45,9 @@ const Hero = () => {
       </div>
 
       {/* Main Hero Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center space-y-6 pt-10">
+      <div className="relative z-10  max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center space-y-2 pt-20">
         
-        {/* Top Location & Timing Badge */}
+        {/* Top Location & Timing Badge
         <div className="inline-flex items-center gap-2 sm:gap-3 px-4 py-2 rounded-full bg-black/60 border border-amber-500/40 backdrop-blur-md shadow-lg animate-fade-in">
           <span className="flex items-center text-amber-400 text-xs sm:text-sm font-semibold uppercase tracking-wider">
             <FaMapMarkerAlt className="mr-1.5 text-amber-500" /> Olaya, Riyadh
@@ -56,7 +56,7 @@ const Hero = () => {
           <span className="flex items-center text-emerald-400 text-xs sm:text-sm font-semibold tracking-wide">
             <FaClock className="mr-1.5 text-emerald-400" /> Open till 3 AM
           </span>
-        </div>
+        </div> */}
 
         {/* Main Heading */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white leading-tight drop-shadow-md max-w-4xl">
@@ -94,7 +94,7 @@ const Hero = () => {
         </div>
 
         {/* Bottom Google Reviews Badge */}
-        <div className="pt-6">
+        {/* <div className="pt-6">
           <a
             href="https://maps.google.com" // Google Map Review Link
             target="_blank"
@@ -108,6 +108,16 @@ const Hero = () => {
             <span className="text-gray-400">|</span>
             <span className="text-gray-300 font-medium">37 Google Reviews</span>
           </a>
+        </div> */}
+{/* Top Location & Timing Badge */}
+        <div className="inline-flex items-center gap-2 sm:gap-3 px-4 py-2 mt-5 rounded-full bg-black/60 border border-amber-500/40 backdrop-blur-md shadow-lg animate-fade-in">
+          <span className="flex items-center text-amber-400 text-xs sm:text-sm font-semibold uppercase tracking-wider">
+            <FaMapMarkerAlt className="mr-1.5 text-amber-500" /> Olaya, Riyadh
+          </span>
+          <span className="text-gray-500 text-xs">•</span>
+          <span className="flex items-center text-emerald-400 text-xs sm:text-sm font-semibold tracking-wide">
+            <FaClock className="mr-1.5 text-emerald-400" /> Open till 3 AM
+          </span>
         </div>
 
       </div>
