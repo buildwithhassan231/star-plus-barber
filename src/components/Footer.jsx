@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { FaChevronUp, FaMapMarkerAlt, FaPhone, FaClock } from 'react-icons/fa'
 import { SiInstagram, SiSnapchat, SiTiktok } from 'react-icons/si'
+import AnimateIn from './AnimateIn'
 
 const quickLinks = [
   { name: 'Home',              href: '/' },
@@ -59,6 +60,7 @@ const Footer = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
 
         {/* ── Main grid ── */}
+        <AnimateIn>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-12 border-b border-border">
 
           {/* Col 1 — Brand */}
@@ -172,6 +174,7 @@ const Footer = () => {
           </div>
 
         </div>
+        </AnimateIn>
 
         {/* ── Bottom bar ── */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
