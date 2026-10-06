@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { FaWhatsapp, FaPhone, FaCalendarCheck, FaChevronLeft, FaChevronRight, FaStar, FaCheck } from 'react-icons/fa'
@@ -23,11 +24,23 @@ function todayStr() {
 }
 
 export default function BookingForm() {
+  const searchParams = useSearchParams()
+
+  // URL se barber name aaya? uska id dhundo
+  const preselectedBarberId = (() => {
+    const nameFromUrl = searchParams.get('barber')
+    if (!nameFromUrl) return ''
+    const found = allBarbers.find(
+      b => b.name.toLowerCase() === decodeURIComponent(nameFromUrl).toLowerCase()
+    )
+    return found ? found.id : ''
+  })()
+
   const [step,      setStep]      = useState(1)
   const [direction, setDirection] = useState(1)
   const [form, setForm] = useState({
     service:  '',
-    barber:   '',
+    barber:   preselectedBarberId,
     date:     '',
     time:     '',
     name:     '',
@@ -126,7 +139,15 @@ export default function BookingForm() {
               {/* ── Step 2: Barber ── */}
               {step === 2 && (
                 <>
-                  <StepHeading step={2} title="Choose Your Barber" subtitle="Pick your preferred barber or let us decide." />
+                  <StepHeading
+                    step={2}
+                    title="Choose Your Barber"
+                    subtitle={
+                      preselectedBarberId
+                        ? `${allBarbers.find(b => b.id === preselectedBarberId)?.name} is pre-selected — you can change if you like.`
+                        : 'Pick your preferred barber or let us decide.'
+                    }
+                  />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
                     {/* Any barber option */}

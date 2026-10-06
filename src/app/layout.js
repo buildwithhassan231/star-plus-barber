@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import { LangProvider } from '@/context/LangContext'
 
 const playfair = Playfair_Display({
   variable: '--font-playfair',
@@ -28,13 +29,16 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      dir="ltr"
       className={`${playfair.variable} ${inter.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Header />
-        {children}
-        <Footer />
-        <WhatsAppButton />
+        <LangProvider>
+          <Header />
+          {children}
+          <Footer />
+          <WhatsAppButton />
+        </LangProvider>
       </body>
     </html>
   )

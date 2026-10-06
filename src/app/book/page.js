@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import PageBanner from '@/components/PageBanner'
 import BookingForm from '@/components/BookAppointment/BookingForm'
 import WalkInInfo from '@/components/BookAppointment/WalkInInfo'
@@ -15,7 +16,9 @@ export default function BookPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 lg:gap-16 items-start">
 
             {/* Left — Multi-step form */}
-            <BookingForm />
+            <Suspense fallback={<div className="w-full h-96 rounded-3xl bg-card border border-border animate-pulse" />}>
+              <BookingForm />
+            </Suspense>
 
             {/* Right — Walk-in info + hours */}
             <WalkInInfo />

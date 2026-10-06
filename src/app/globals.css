@@ -177,6 +177,12 @@ html[dir="rtl"] h3 {
   box-shadow: 0 8px 28px rgba(37, 211, 102, 0.6);
 }
 
+/* RTL: pin to bottom-left instead */
+html[dir="rtl"] .whatsapp-float {
+  right: auto;
+  left: 1.75rem;
+}
+
 /* Pulse ring */
 .whatsapp-float::before {
   content: '';
@@ -211,6 +217,16 @@ html[dir="rtl"] h3 {
 }
 .whatsapp-float:hover .whatsapp-tooltip {
   opacity: 1;
+  transform: translateX(0);
+}
+
+/* RTL tooltip: flip to the other side */
+html[dir="rtl"] .whatsapp-tooltip {
+  right: auto;
+  left: calc(100% + 0.65rem);
+  transform: translateX(-6px);
+}
+html[dir="rtl"] .whatsapp-float:hover .whatsapp-tooltip {
   transform: translateX(0);
 }
 
