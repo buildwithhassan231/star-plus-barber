@@ -44,14 +44,14 @@ export default function PriceNote() {
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
               <a
-                href="tel:+966500000000"
+                href="tel:+966576984355"
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-border text-muted hover:text-gold hover:border-gold text-xs font-bold uppercase tracking-wider transition-all duration-200"
               >
                 <FaPhone className="text-gold" />
                 Call Us
               </a>
               <a
-                href="https://wa.me/966500000000"
+                href="https://wa.me/966576984355"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-600/10 border border-emerald-600/30 text-emerald-400 hover:bg-emerald-600/20 text-xs font-bold uppercase tracking-wider transition-all duration-200"

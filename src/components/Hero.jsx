@@ -8,8 +8,7 @@ const Hero = () => {
   // Video ya Image switch karne ya background images slider ke liye state
   const [useVideo, setUseVideo] = useState(true)
 
-  // Demo Whatsapp Link (Riyadh country code +966)
-  const whatsappNumber = '966500000000'
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '966576984355'
   const whatsappMessage = encodeURIComponent('Hello! I want to book an appointment.')
 
   return (

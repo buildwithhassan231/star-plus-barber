@@ -39,7 +39,7 @@ export default function ContactPage() {
         headingHighlight="Help You"
         description="Whether you want to book, ask about a service, or just say hello — we're always happy to hear from you."
         primaryBtn={{ label: 'Book Appointment', href: '/book' }}
-        secondaryBtn={{ label: 'Chat on WhatsApp', href: 'https://wa.me/966500000000', variant: 'whatsapp' }}
+        secondaryBtn={{ label: 'Chat on WhatsApp', href: 'https://wa.me/966576984355', variant: 'whatsapp' }}
         trustNote="No hidden charges · Walk-ins welcome · Open daily till 3 AM"
         bg="surface"
       />

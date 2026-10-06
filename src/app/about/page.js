@@ -22,7 +22,7 @@ export default function AboutPage() {
         headingHighlight="Star Plus Difference"
         description="From your first visit, you'll understand why thousands of clients call us their home barbershop. Book your seat today."
         primaryBtn={{ label: 'Book Appointment', href: '/book' }}
-        secondaryBtn={{ label: 'Chat on WhatsApp', href: 'https://wa.me/966500000000', variant: 'whatsapp' }}
+        secondaryBtn={{ label: 'Chat on WhatsApp', href: 'https://wa.me/966576984355', variant: 'whatsapp' }}
         trustNote="No hidden charges · Walk-ins welcome · Open daily till 3 AM"
         bg="background"
       />
