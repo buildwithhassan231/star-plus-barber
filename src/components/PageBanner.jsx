@@ -2,39 +2,30 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 import { FaChevronRight, FaHome } from 'react-icons/fa'
 
 /**
  * PageBanner — reusable hero banner for all non-home pages.
- *
- * Props:
- *  - heading     {string}  required — page title  e.g. "Our Services"
- *  - description {string}  optional — short subtitle
- *  - breadcrumb  {string}  optional — current page label for breadcrumb (defaults to heading)
+ * heading / description are EN keys — t() translates them automatically.
  */
 export default function PageBanner({ heading, description, breadcrumb }) {
+  const { t } = useTranslation()
   const crumb = breadcrumb || heading
 
   return (
     <section className="relative w-full pt-28 md:pt-32 overflow-hidden">
 
-      {/* ── Dark background with subtle pattern ── */}
       <div className="absolute inset-0 bg-background">
-        {/* Gold radial glow — top center */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gold/10 blur-[100px] rounded-full" />
-        {/* Faint diagonal lines overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, #c9a24d 0px, #c9a24d 1px, transparent 1px, transparent 60px)',
-          }}
+          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #c9a24d 0px, #c9a24d 1px, transparent 1px, transparent 60px)' }}
         />
       </div>
 
-      {/* ── Gold top accent line ── */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent" />
 
-      {/* ── Content ── */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center text-center">
 
         {/* Breadcrumb */}
@@ -46,10 +37,10 @@ export default function PageBanner({ heading, description, breadcrumb }) {
         >
           <Link href="/" className="flex items-center gap-1.5 hover:text-gold transition-colors duration-200">
             <FaHome className="text-gold" />
-            Home
+            {t('Home_breadcrumb')}
           </Link>
           <FaChevronRight className="text-[10px] text-border" />
-          <span className="text-gold">{crumb}</span>
+          <span className="text-gold">{t(crumb)}</span>
         </motion.div>
 
         {/* Heading */}
@@ -59,7 +50,7 @@ export default function PageBanner({ heading, description, breadcrumb }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="text-gold-gradient">{heading}</span>
+          <span className="text-gold-gradient">{t(heading)}</span>
         </motion.h1>
 
         {/* Gold divider */}
@@ -78,15 +69,13 @@ export default function PageBanner({ heading, description, breadcrumb }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            {description}
+            {t(description)}
           </motion.p>
         )}
 
       </div>
 
-      {/* ── Bottom fade into page ── */}
       <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-background to-transparent pointer-events-none" />
-
     </section>
   )
 }

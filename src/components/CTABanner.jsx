@@ -1,23 +1,8 @@
 'use client'
 
-/**
- * CTABanner — Reusable CTA section used across all pages.
- *
- * Props:
- *  eyebrow    {string}              — small label above heading  (default: "Ready to Begin?")
- *  heading    {string}              — main heading, plain text   (default: "Ready for Your Best Look?")
- *  headingHighlight {string}        — gold-gradient word(s) inside heading (default: "Best Look?")
- *  description {string}            — paragraph below heading
- *  primaryBtn  { label, href }     — gold button  (default: Book Appointment → /book)
- *  secondaryBtn { label, href,     — outline / custom button
- *                 variant }        — variant: 'outline' | 'whatsapp' | 'instagram'
- *  trustNote  {string}             — tiny note at very bottom
- *  showStars  {boolean}            — show 5 gold stars above heading (default: false)
- *  bg         {string}             — 'background' | 'surface' (default: 'background')
- */
-
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 import { FaCalendarCheck, FaWhatsapp, FaInstagram, FaStar } from 'react-icons/fa'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -27,8 +12,7 @@ function SecondaryButton({ btn }) {
 
   if (btn.variant === 'whatsapp') {
     return (
-      <a href={btn.href} target="_blank" rel="noreferrer"
-        className={`${base} btn-outline`}>
+      <a href={btn.href} target="_blank" rel="noreferrer" className={`${base} btn-outline`}>
         <FaWhatsapp className="text-base" /> {btn.label}
       </a>
     )
@@ -41,26 +25,25 @@ function SecondaryButton({ btn }) {
       </a>
     )
   }
-  // default outline
   return (
-    <Link href={btn.href ?? '#'}
-      className={`${base} btn-outline`}>
+    <Link href={btn.href ?? '#'} className={`${base} btn-outline`}>
       {btn.label}
     </Link>
   )
 }
 
 export default function CTABanner({
-  eyebrow        = 'Ready to Begin?',
-  heading        = 'Ready for Your',
+  eyebrow          = 'Ready to Begin?',
+  heading          = 'Ready for Your',
   headingHighlight = 'Best Look?',
-  description    = "Book a session with one of our master barbers today. Walk in, or reserve your seat in seconds — we're open daily until 3 AM.",
-  primaryBtn     = { label: 'Book Appointment', href: '/book' },
-  secondaryBtn   = { label: 'Chat on WhatsApp', href: 'https://wa.me/966576984355', variant: 'whatsapp' },
-  trustNote      = 'No hidden charges · Walk-ins welcome · Open daily till 3 AM',
-  showStars      = false,
-  bg             = 'background',
+  description      = "Book a session with one of our master barbers today. Walk in, or reserve your seat in seconds — we're open daily until 3 AM.",
+  primaryBtn       = { label: 'Book Appointment', href: '/book' },
+  secondaryBtn     = { label: 'Chat on WhatsApp', href: 'https://wa.me/966576984355', variant: 'whatsapp' },
+  trustNote        = 'No hidden charges · Walk-ins welcome · Open daily till 3 AM',
+  showStars        = false,
+  bg               = 'background',
 }) {
+  const { t } = useTranslation()
   const sectionBg = bg === 'surface' ? 'bg-surface border-t border-border' : 'bg-background'
 
   return (
@@ -78,14 +61,11 @@ export default function CTABanner({
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease }}
         >
-          {/* Top gold line */}
           <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
 
-          {/* Diagonal pattern */}
           <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
             style={{ backgroundImage: 'repeating-linear-gradient(135deg, #c9a24d 0px, #c9a24d 1px, transparent 1px, transparent 50px)' }} />
 
-          {/* Inner glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-gold/10 blur-[80px] rounded-full pointer-events-none" />
 
           <div className="relative px-6 sm:px-12 py-14 sm:py-16 flex flex-col items-center text-center gap-5">
@@ -103,7 +83,7 @@ export default function CTABanner({
             <motion.span className="text-xs font-bold uppercase tracking-[0.25em] text-gold"
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
               viewport={{ once: true }} transition={{ delay: 0.2 }}>
-              {eyebrow}
+              {t(eyebrow)}
             </motion.span>
 
             {/* Heading */}
@@ -111,8 +91,8 @@ export default function CTABanner({
               className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-foreground leading-tight"
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.65, ease }}>
-              {heading}{' '}
-              <span className="text-gold-gradient">{headingHighlight}</span>
+              {t(heading)}{' '}
+              <span className="text-gold-gradient">{t(headingHighlight)}</span>
             </motion.h2>
 
             {/* Divider */}
@@ -124,7 +104,7 @@ export default function CTABanner({
             <motion.p className="text-muted text-sm sm:text-base max-w-lg leading-relaxed"
               initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: 0.45, duration: 0.55 }}>
-              {description}
+              {t(description)}
             </motion.p>
 
             {/* Buttons */}
@@ -137,11 +117,13 @@ export default function CTABanner({
                 <Link href={primaryBtn.href ?? '/book'}
                   className="btn-gold w-full sm:w-auto text-sm uppercase tracking-widest rounded-full px-8 py-4 flex items-center justify-center gap-2">
                   <FaCalendarCheck />
-                  {primaryBtn.label}
+                  {t(primaryBtn.label)}
                 </Link>
               )}
 
-              {secondaryBtn && <SecondaryButton btn={secondaryBtn} />}
+              {secondaryBtn && (
+                <SecondaryButton btn={{ ...secondaryBtn, label: t(secondaryBtn.label) }} />
+              )}
             </motion.div>
 
             {/* Trust note */}
@@ -149,7 +131,7 @@ export default function CTABanner({
               <motion.p className="text-muted text-xs tracking-wide"
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
                 viewport={{ once: true }} transition={{ delay: 0.7 }}>
-                {trustNote}
+                {t(trustNote)}
               </motion.p>
             )}
 

@@ -1,14 +1,18 @@
+'use client'
+
 import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa6'
+import { useTranslation } from 'react-i18next'
 import GalleryCard from './GalleryCard'
 import { featuredGallery } from './galleryData'
 import AnimateIn from '@/components/AnimateIn'
 
 export default function GalleryPreview() {
+  const { t } = useTranslation()
+
   return (
     <section className="section w-full bg-surface text-foreground px-4 sm:px-6 lg:px-8 relative overflow-hidden border-t border-border">
 
-      {/* Ambient glow */}
       <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -16,14 +20,15 @@ export default function GalleryPreview() {
         {/* Header */}
         <AnimateIn className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
           <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-gold mb-2 block">
-            Visual Craftsmanship
+            {t("Visual Craftsmanship")}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">
-            Our Work <span className="text-gold-gradient">Gallery</span>
+            {t("Our Work")}{' '}
+            <span className="text-gold-gradient">{t("Gallery_gradient")}</span>
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto rounded-full mb-4" />
           <p className="text-muted text-sm sm:text-base leading-relaxed">
-            A glimpse into our latest haircuts, beard grooming, and luxury salon ambiance.
+            {t("A glimpse into our latest haircuts, beard grooming, and luxury salon ambiance.")}
           </p>
         </AnimateIn>
 
@@ -42,7 +47,7 @@ export default function GalleryPreview() {
             href="/gallery"
             className="btn-outline inline-flex items-center gap-3 text-sm uppercase tracking-wider rounded-full px-8 py-4 group"
           >
-            <span>View Full Gallery</span>
+            <span>{t("View Full Gallery")}</span>
             <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
           </Link>
         </AnimateIn>

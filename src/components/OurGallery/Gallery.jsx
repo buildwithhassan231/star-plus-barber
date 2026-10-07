@@ -3,10 +3,15 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { FaInstagram, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { allGallery } from './galleryData'
 
-const filters = ['All', 'Haircuts', 'Beard', 'Colour', 'Interior']
+/* Filter keys — translated via t() */
+const filterKeys = ['All', 'Haircuts', 'Beard', 'Colour', 'Interior']
+
+/* Map English category → translation key (same as filter key) */
+const categoryKey = (cat) => cat  // already matches filterKeys
 
 const cardVariants = {
   hidden:  { opacity: 0, scale: 0.94, y: 20 },
@@ -15,17 +20,17 @@ const cardVariants = {
 }
 
 export default function Gallery() {
-  const [active,    setActive]    = useState('All')
-  const [lightbox,  setLightbox]  = useState(null) // index into filtered array
+  const { t } = useTranslation()
+  const [active,   setActive]   = useState('All')
+  const [lightbox, setLightbox] = useState(null)
 
   const filtered = active === 'All' ? allGallery : allGallery.filter(i => i.category === active)
 
-  // Keyboard navigation for lightbox
   const handleKey = useCallback((e) => {
     if (lightbox === null) return
-    if (e.key === 'Escape')      setLightbox(null)
-    if (e.key === 'ArrowRight')  setLightbox(p => (p + 1) % filtered.length)
-    if (e.key === 'ArrowLeft')   setLightbox(p => (p - 1 + filtered.length) % filtered.length)
+    if (e.key === 'Escape')     setLightbox(null)
+    if (e.key === 'ArrowRight') setLightbox(p => (p + 1) % filtered.length)
+    if (e.key === 'ArrowLeft')  setLightbox(p => (p - 1 + filtered.length) % filtered.length)
   }, [lightbox, filtered.length])
 
   useEffect(() => {
@@ -33,7 +38,6 @@ export default function Gallery() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [handleKey])
 
-  // Lock body scroll when lightbox open
   useEffect(() => {
     document.body.style.overflow = lightbox !== null ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -47,14 +51,14 @@ export default function Gallery() {
 
         <div className="max-w-7xl mx-auto relative z-10">
 
-          {/* ── Filter Buttons ── */}
+          {/* Filter Buttons */}
           <motion.div
             className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 md:mb-14"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {filters.map((f) => (
+            {filterKeys.map((f) => (
               <button
                 key={f}
                 onClick={() => setActive(f)}
@@ -64,7 +68,7 @@ export default function Gallery() {
                     : 'bg-card text-muted border-border hover:border-gold/50 hover:text-gold'
                 }`}
               >
-                {f}
+                {t(f)}
                 {active === f && (
                   <motion.span layoutId="galleryTab" className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold" />
                 )}
@@ -72,7 +76,7 @@ export default function Gallery() {
             ))}
           </motion.div>
 
-          {/* ── Photo Grid ── */}
+          {/* Photo Grid */}
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
             layout
@@ -90,29 +94,28 @@ export default function Gallery() {
                   onClick={() => setLightbox(i)}
                   className="group relative h-[280px] sm:h-[320px] rounded-2xl overflow-hidden bg-card border border-border hover:border-gold/60 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-gold/10 cursor-pointer"
                 >
-                  <Image src={item.image} alt={item.title} fill className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out" />
+                  <Image src={item.image} alt={t(item.title)} fill className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out" />
 
-                  {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-300" />
 
                   {/* Category tag */}
                   <div className="absolute top-4 start-4 z-10">
                     <span className="bg-background/80 backdrop-blur-md border border-border text-gold-light text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                      {item.category}
+                      {t(categoryKey(item.category))}
                     </span>
                   </div>
 
-                  {/* Zoom icon on hover */}
+                  {/* Zoom icon */}
                   <div className="absolute inset-0 flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-12 h-12 rounded-full bg-gold/90 text-background flex items-center justify-center text-xl shadow-xl scale-75 group-hover:scale-100 transition-transform duration-300">
                       ⊕
                     </div>
                   </div>
 
-                  {/* Bottom info */}
+                  {/* Title */}
                   <div className="absolute bottom-0 start-0 end-0 p-5 z-10">
                     <h3 className="text-sm sm:text-base font-bold text-foreground group-hover:text-gold-light transition-colors uppercase tracking-wide leading-snug">
-                      {item.title}
+                      {t(item.title)}
                     </h3>
                   </div>
                 </motion.div>
@@ -120,7 +123,7 @@ export default function Gallery() {
             </AnimatePresence>
           </motion.div>
 
-          {/* ── Instagram CTA ── */}
+          {/* Instagram CTA */}
           <motion.div
             className="mt-14 md:mt-20 flex flex-col items-center gap-5 text-center"
             initial={{ opacity: 0, y: 20 }}
@@ -130,7 +133,7 @@ export default function Gallery() {
           >
             <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent rounded-full" />
             <p className="text-muted text-sm sm:text-base max-w-md">
-              See our latest work, daily updates, and behind-the-scenes moments.
+              {t('See our latest work, daily updates, and behind-the-scenes moments.')}
             </p>
             <a
               href="https://instagram.com"
@@ -139,14 +142,14 @@ export default function Gallery() {
               className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-extrabold text-sm uppercase tracking-widest transition-all duration-300 text-white bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:scale-105 hover:shadow-xl hover:shadow-pink-500/25"
             >
               <FaInstagram className="text-xl" />
-              Follow us for more
+              {t('Follow us for more')}
             </a>
           </motion.div>
 
         </div>
       </section>
 
-      {/* ── Lightbox ── */}
+      {/* Lightbox */}
       <AnimatePresence>
         {lightbox !== null && (
           <motion.div
@@ -197,7 +200,7 @@ export default function Gallery() {
               <div className="relative w-full h-[60vh] sm:h-[75vh]">
                 <Image
                   src={filtered[lightbox].image}
-                  alt={filtered[lightbox].title}
+                  alt={t(filtered[lightbox].title)}
                   fill
                   className="object-contain"
                   priority
@@ -207,10 +210,10 @@ export default function Gallery() {
               {/* Caption */}
               <div className="absolute bottom-0 start-0 end-0 bg-gradient-to-t from-black/90 to-transparent px-6 py-5">
                 <span className="text-gold-light text-[10px] font-bold uppercase tracking-widest block mb-1">
-                  {filtered[lightbox].category}
+                  {t(categoryKey(filtered[lightbox].category))}
                 </span>
                 <h3 className="text-white font-bold text-base sm:text-lg uppercase tracking-wide">
-                  {filtered[lightbox].title}
+                  {t(filtered[lightbox].title)}
                 </h3>
                 <p className="text-white/40 text-xs mt-1">
                   {lightbox + 1} / {filtered.length}

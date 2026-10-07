@@ -1,8 +1,13 @@
+'use client'
+
+import { useTranslation } from 'react-i18next'
 import { FaClock, FaWalking, FaMapMarkerAlt } from 'react-icons/fa'
 import AnimateIn from '@/components/AnimateIn'
 import { hours } from './bookData'
 
 export default function WalkInInfo() {
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col gap-6">
 
@@ -15,9 +20,11 @@ export default function WalkInInfo() {
               <FaWalking />
             </div>
             <div>
-              <h4 className="text-foreground font-black uppercase tracking-wide text-base mb-1">Walk-ins Welcome</h4>
+              <h4 className="text-foreground font-black uppercase tracking-wide text-base mb-1">
+                {t('Walk-ins Welcome_book')}
+              </h4>
               <p className="text-muted text-sm leading-relaxed">
-                No appointment? No problem. Walk in anytime during our working hours and we&apos;ll take care of you. Booking ahead just guarantees your preferred time slot.
+                {t("No appointment? No problem. Walk in anytime during our working hours and we'll take care of you. Booking ahead just guarantees your preferred time slot.")}
               </p>
             </div>
           </div>
@@ -31,19 +38,21 @@ export default function WalkInInfo() {
             <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold">
               <FaClock />
             </div>
-            <h4 className="text-foreground font-black uppercase tracking-wide text-base">Opening Hours</h4>
+            <h4 className="text-foreground font-black uppercase tracking-wide text-base">
+              {t('Opening Hours')}
+            </h4>
           </div>
 
           <div className="flex flex-col gap-2.5">
             {hours.map(({ day, time }) => (
               <div key={day} className="flex items-center justify-between text-sm border-b border-border/50 pb-2 last:border-0 last:pb-0">
-                <span className="text-muted">{day}</span>
+                <span className="text-muted">{t(day)}</span>
                 <span className={`font-bold ${
-                  time === 'CLOSED'           ? 'text-red-400' :
-                  time.includes('3:00 AM')    ? 'text-gold'    :
+                  time === 'CLOSED'        ? 'text-red-400' :
+                  time.includes('3:00 AM') ? 'text-gold'    :
                   'text-foreground'
                 }`}>
-                  {time}
+                  {t(time)}
                 </span>
               </div>
             ))}
@@ -51,7 +60,7 @@ export default function WalkInInfo() {
 
           <div className="mt-5 flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gold/10 border border-gold/20">
             <FaClock className="text-gold text-xs flex-shrink-0" />
-            <span className="text-gold text-xs font-semibold">Open daily until 3:00 AM</span>
+            <span className="text-gold text-xs font-semibold">{t('Open daily until 3:00 AM')}</span>
           </div>
         </div>
       </AnimateIn>
@@ -63,8 +72,10 @@ export default function WalkInInfo() {
             <FaMapMarkerAlt />
           </div>
           <div>
-            <h4 className="text-foreground font-bold uppercase tracking-wide text-sm mb-1">Find Us</h4>
-            <p className="text-muted text-sm">Olaya District, Riyadh, Saudi Arabia</p>
+            <h4 className="text-foreground font-bold uppercase tracking-wide text-sm mb-1">
+              {t('Find Us_book')}
+            </h4>
+            <p className="text-muted text-sm">{t('Olaya District, Riyadh, Saudi Arabia')}</p>
             <a
               href="https://maps.google.com"
               target="_blank"
@@ -72,7 +83,7 @@ export default function WalkInInfo() {
               className="inline-flex items-center gap-1.5 text-gold text-xs font-semibold mt-2 hover:text-gold-light transition-colors"
             >
               <FaMapMarkerAlt className="text-[10px]" />
-              Get Directions →
+              {t('Get Directions →')}
             </a>
           </div>
         </div>

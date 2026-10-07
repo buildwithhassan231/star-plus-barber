@@ -1,8 +1,13 @@
+'use client'
+
+import { useTranslation } from 'react-i18next'
 import AnimateIn from '@/components/AnimateIn'
-import { FaMapMarkerAlt, FaDirections } from 'react-icons/fa'
+import { FaMapMarkerAlt } from 'react-icons/fa'
 import { MAP_EMBED, DIRECTIONS, landmarks } from './contactData'
 
 export default function MapSection() {
+  const { t } = useTranslation()
+
   return (
     <section className="w-full bg-surface px-4 sm:px-6 lg:px-8 py-16 md:py-20 border-y border-border">
       <div className="max-w-7xl mx-auto flex flex-col gap-8">
@@ -10,9 +15,11 @@ export default function MapSection() {
         {/* Header */}
         <AnimateIn className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-gold mb-2 block">Find Us</span>
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-gold mb-2 block">
+              {t('Find Us')}
+            </span>
             <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground">
-              Our <span className="text-gold-gradient">Location</span>
+              {t('Our')} <span className="text-gold-gradient">{t('Our Location')}</span>
             </h2>
           </div>
           <a
@@ -22,7 +29,7 @@ export default function MapSection() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold hover:bg-gold-light text-background font-extrabold text-xs uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-gold/30 hover:scale-105 self-start sm:self-auto"
           >
             <FaMapMarkerAlt />
-            Get Directions
+            {t('Get Directions')}
           </a>
         </AnimateIn>
 
@@ -47,7 +54,7 @@ export default function MapSection() {
                   <FaMapMarkerAlt className="text-background text-lg" />
                 </div>
                 <div className="bg-background/90 backdrop-blur-sm border border-border px-3 py-1.5 rounded-full shadow-lg">
-                  <p className="text-foreground text-xs font-bold">Star Plus Barber</p>
+                  <p className="text-foreground text-xs font-bold">{t('Star Plus Barber')}</p>
                 </div>
               </div>
             </div>
@@ -60,7 +67,7 @@ export default function MapSection() {
             {landmarks.map((lm, i) => (
               <div key={i} className="flex items-start gap-3 bg-card border border-border rounded-xl px-4 py-3 text-sm">
                 <span className="text-xl flex-shrink-0">{lm.icon}</span>
-                <span className="text-muted leading-relaxed">{lm.text}</span>
+                <span className="text-muted leading-relaxed">{t(lm.text)}</span>
               </div>
             ))}
           </div>

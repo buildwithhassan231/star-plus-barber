@@ -1,14 +1,19 @@
+'use client'
+
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 import { FaInstagram } from 'react-icons/fa6'
 
 export default function GalleryCard({ item }) {
+  const { t } = useTranslation()
+
   return (
     <div className="group relative h-[300px] sm:h-[340px] rounded-2xl overflow-hidden bg-card border border-border hover:border-gold/60 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-gold/10 cursor-pointer">
 
       {/* Image */}
       <Image
         src={item.image}
-        alt={item.title}
+        alt={t(item.title)}
         fill
         priority
         className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
@@ -20,7 +25,7 @@ export default function GalleryCard({ item }) {
       {/* Category tag */}
       <div className="absolute top-4 start-4 z-10">
         <span className="bg-background/80 backdrop-blur-md border border-border text-gold-light text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-          {item.category}
+          {t(item.category)}
         </span>
       </div>
 
@@ -28,10 +33,10 @@ export default function GalleryCard({ item }) {
       <div className="absolute bottom-0 start-0 end-0 p-6 z-10 flex items-end justify-between">
         <div>
           <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-gold-light transition-colors uppercase tracking-wide leading-snug">
-            {item.title}
+            {t(item.title)}
           </h3>
           <p className="text-xs text-muted mt-1 font-medium">
-            Riyadh Shop Highlights
+            {t('Riyadh Shop Highlights')}
           </p>
         </div>
 

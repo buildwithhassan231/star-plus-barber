@@ -1,23 +1,24 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLang } from '@/context/LangContext'
 
-/* ── Bilingual nav links — order never changes ── */
+/* ── Nav links — keys match translations.json ── */
 const allLinks = [
-  { en: 'Home',        ar: 'الرئيسية',   href: '/' },
-  { en: 'Services',    ar: 'الخدمات',    href: '/services' },
-  { en: 'Our Barbers', ar: 'حلاقونا',    href: '/barbers' },
-  { en: 'Gallery',     ar: 'المعرض',     href: '/gallery' },
-  { en: 'About Us',    ar: 'من نحن',     href: '/about' },
-  { en: 'Contact',     ar: 'تواصل معنا', href: '/contact' },
+  { key: 'Home',        href: '/' },
+  { key: 'Services',    href: '/services' },
+  { key: 'Our Barbers', href: '/barbers' },
+  { key: 'Gallery',     href: '/gallery' },
+  { key: 'About Us',    href: '/about' },
+  { key: 'Contact',     href: '/contact' },
 ]
 
-const leftNavLinks  = allLinks.slice(0, 4)  // Home · Services · Our Barbers · Gallery
-const rightNavLinks = allLinks.slice(4)      // About Us · Contact
+const leftNavLinks  = allLinks.slice(0, 4)
+const rightNavLinks = allLinks.slice(4)
 
 const navItem = {
   hidden:  { opacity: 0, y: -12 },
@@ -63,14 +64,12 @@ const Header = () => {
   const [scrolled,    setScrolled]    = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { lang, toggleLang } = useLang()
+  const { t } = useTranslation()
 
   const isAR = lang === 'AR'
 
   /* Label shows what you will switch TO */
-  const langLabel = isAR ? 'English' : 'العربية'
-
-  /* Text helper */
-  const t = (link) => isAR ? link.ar : link.en
+  const langLabel = isAR ? t('English') : t('العربية')
 
   /* Arabic font style — applied only when AR */
   const arFont = isAR ? { fontFamily: 'var(--font-arabic)', letterSpacing: 0 } : {}
@@ -124,7 +123,7 @@ const Header = () => {
                     className={`nav-link ${index === 0 ? 'nav-link-active' : ''}`}
                     style={arFont}
                   >
-                    {t(link)}
+                    {t(link.key)}
                   </Link>
                 </motion.div>
               ))}
@@ -161,7 +160,7 @@ const Header = () => {
               {rightNavLinks.map((link) => (
                 <motion.div key={link.href} variants={navItem} transition={{ duration: 0.4 }}>
                   <Link href={link.href} className="nav-link" style={arFont}>
-                    {t(link)}
+                    {t(link.key)}
                   </Link>
                 </motion.div>
               ))}
@@ -185,7 +184,7 @@ const Header = () => {
                   className="bg-amber-500 hover:bg-amber-400 text-black text-xs font-extrabold uppercase tracking-widest px-5 py-2 rounded-full transition-colors duration-200 whitespace-nowrap shadow-sm"
                   style={isAR ? { fontFamily: 'var(--font-arabic)', letterSpacing: 0, textTransform: 'none' } : {}}
                 >
-                  {isAR ? 'احجز الآن' : 'Book Now'}
+                  {t('Book Now')}
                 </Link>
               </motion.div>
             </motion.nav>
@@ -294,7 +293,7 @@ const Header = () => {
                     }
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-gold/30 group-hover:bg-gold transition-colors flex-shrink-0" />
-                    {t(link)}
+                    {t(link.key)}
                   </Link>
                 </motion.div>
               ))}
@@ -311,7 +310,7 @@ const Header = () => {
                   : {}
                 }
               >
-                {isAR ? 'احجز الآن' : 'Book Now'}
+                {t('Book Now')}
               </Link>
             </div>
 

@@ -1,25 +1,38 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect } from 'react'
+import i18n from '@/lib/i18n'
 
 const LangContext = createContext({ lang: 'EN', toggleLang: () => {} })
 
 export function LangProvider({ children }) {
   const [lang, setLang] = useState('EN') // 'EN' | 'AR'
 
-  const toggleLang = () => setLang((l) => (l === 'EN' ? 'AR' : 'EN'))
-
-  /* ── Sync <html lang="…" dir="…"> whenever lang changes ── */
+  /* ── Restore saved language after mount (avoids SSR hydration mismatch) ── */
   useEffect(() => {
-    const html = document.documentElement
-    if (lang === 'AR') {
-      html.setAttribute('lang', 'ar')
-      html.setAttribute('dir', 'rtl')
-    } else {
-      html.setAttribute('lang', 'en')
-      html.setAttribute('dir', 'ltr')
+    const saved = localStorage.getItem('lang')
+    if (saved === 'AR') {
+      applyLang('AR')
+      setLang('AR')
     }
-  }, [lang])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /* ── Apply language: i18n + <html> attributes + localStorage ── */
+  function applyLang(next) {
+    const locale = next === 'AR' ? 'ar' : 'en'
+    i18n.changeLanguage(locale)
+    const html = document.documentElement
+    html.setAttribute('lang', locale)
+    html.setAttribute('dir', next === 'AR' ? 'rtl' : 'ltr')
+    localStorage.setItem('lang', next)
+  }
+
+  const toggleLang = () => {
+    const next = lang === 'EN' ? 'AR' : 'EN'
+    applyLang(next)
+    setLang(next)
+  }
 
   return (
     <LangContext.Provider value={{ lang, toggleLang }}>
@@ -28,5 +41,4 @@ export function LangProvider({ children }) {
   )
 }
 
-/* Convenience hook */
 export const useLang = () => useContext(LangContext)

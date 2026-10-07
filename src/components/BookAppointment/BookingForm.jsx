@@ -4,29 +4,26 @@ import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { FaWhatsapp, FaPhone, FaCalendarCheck, FaChevronLeft, FaChevronRight, FaStar, FaCheck } from 'react-icons/fa'
+import { useTranslation } from 'react-i18next'
+import { FaWhatsapp, FaPhone, FaChevronLeft, FaChevronRight, FaStar, FaCheck } from 'react-icons/fa'
 import { allBarbers } from '@/components/Ourbarbers/barbersData'
 import { services, timeSlots, WHATSAPP_NUMBER, SHOP_PHONE } from './bookData'
 import StepIndicator from './StepIndicator'
 
 const slideVariants = {
   enter: (dir) => ({ opacity: 0, x: dir > 0 ? 60 : -60 }),
-  center:       { opacity: 1, x: 0 },
+  center:        { opacity: 1, x: 0 },
   exit:  (dir) => ({ opacity: 0, x: dir > 0 ? -60 : 60 }),
 }
 
-const inputClass = "w-full bg-card border border-border focus:border-gold focus:ring-1 focus:ring-gold/30 rounded-xl px-4 py-3.5 text-foreground text-sm placeholder:text-muted outline-none transition-all duration-200"
-const labelClass = "block text-xs font-bold uppercase tracking-widest text-muted mb-2"
-
-// Get today's date in YYYY-MM-DD
 function todayStr() {
   return new Date().toISOString().split('T')[0]
 }
 
 export default function BookingForm() {
+  const { t } = useTranslation()
   const searchParams = useSearchParams()
 
-  // URL se barber name aaya? uska id dhundo
   const preselectedBarberId = (() => {
     const nameFromUrl = searchParams.get('barber')
     if (!nameFromUrl) return ''
@@ -39,18 +36,17 @@ export default function BookingForm() {
   const [step,      setStep]      = useState(1)
   const [direction, setDirection] = useState(1)
   const [form, setForm] = useState({
-    service:  '',
-    barber:   preselectedBarberId,
-    date:     '',
-    time:     '',
-    name:     '',
-    phone:    '',
+    service: '',
+    barber:  preselectedBarberId,
+    date:    '',
+    time:    '',
+    name:    '',
+    phone:   '',
   })
 
-  const update = (key, val) => setForm(f => ({ ...f, [key]: val }))
-
-  const goNext = () => { setDirection(1);  setStep(s => Math.min(s + 1, 4)) }
-  const goPrev = () => { setDirection(-1); setStep(s => Math.max(s - 1, 1)) }
+  const update  = (key, val) => setForm(f => ({ ...f, [key]: val }))
+  const goNext  = () => { setDirection(1);  setStep(s => Math.min(s + 1, 4)) }
+  const goPrev  = () => { setDirection(-1); setStep(s => Math.max(s - 1, 1)) }
 
   const canNext = () => {
     if (step === 1) return !!form.service
@@ -61,8 +57,10 @@ export default function BookingForm() {
   }
 
   const buildWhatsAppMsg = () => {
-    const svc     = services.find(s => s.id === form.service)
-    const barberName = form.barber === 'any' ? 'Any available barber' : allBarbers.find(b => b.id === form.barber)?.name
+    const svc        = services.find(s => s.id === form.service)
+    const barberName = form.barber === 'any'
+      ? 'Any available barber'
+      : allBarbers.find(b => b.id === form.barber)?.name
     const msg = [
       '🌟 *New Appointment Request — Star Plus Barber*',
       '',
@@ -78,15 +76,15 @@ export default function BookingForm() {
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
   }
 
+  const inputClass = "w-full bg-card border border-border focus:border-gold focus:ring-1 focus:ring-gold/30 rounded-xl px-4 py-3.5 text-foreground text-sm placeholder:text-muted outline-none transition-all duration-200"
+  const labelClass = "block text-xs font-bold uppercase tracking-widest text-muted mb-2"
+
   return (
     <div className="w-full max-w-2xl mx-auto">
 
       <StepIndicator currentStep={step} />
 
-      {/* Card */}
       <div className="relative bg-card border border-border rounded-3xl overflow-hidden shadow-2xl">
-
-        {/* Gold top line */}
         <div className="h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent" />
 
         <div className="p-6 sm:p-10 min-h-[380px] flex flex-col">
@@ -102,10 +100,10 @@ export default function BookingForm() {
               className="flex-1 flex flex-col gap-6"
             >
 
-              {/* ── Step 1: Service ── */}
+              {/* Step 1: Service */}
               {step === 1 && (
                 <>
-                  <StepHeading step={1} title="Choose a Service" subtitle="What would you like today?" />
+                  <StepHeading step={1} titleKey="Choose a Service" subtitleKey="What would you like today?" t={t} />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {services.map(svc => (
                       <button
@@ -123,7 +121,7 @@ export default function BookingForm() {
                           </span>
                         )}
                         <p className={`text-sm font-bold uppercase tracking-wide mb-1 ${form.service === svc.id ? 'text-gold' : 'text-foreground'}`}>
-                          {svc.label}
+                          {t(svc.label)}
                         </p>
                         <div className="flex items-center gap-2 text-[11px] text-muted">
                           <span>{svc.price}</span>
@@ -136,21 +134,21 @@ export default function BookingForm() {
                 </>
               )}
 
-              {/* ── Step 2: Barber ── */}
+              {/* Step 2: Barber */}
               {step === 2 && (
                 <>
                   <StepHeading
                     step={2}
-                    title="Choose Your Barber"
+                    titleKey="Choose Your Barber"
                     subtitle={
                       preselectedBarberId
-                        ? `${allBarbers.find(b => b.id === preselectedBarberId)?.name} is pre-selected — you can change if you like.`
-                        : 'Pick your preferred barber or let us decide.'
+                        ? `${allBarbers.find(b => b.id === preselectedBarberId)?.name} ${t('is pre-selected — you can change if you like.')}`
+                        : t('Pick your preferred barber or let us decide.')
                     }
+                    t={t}
                   />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
-                    {/* Any barber option */}
                     <button
                       onClick={() => update('barber', 'any')}
                       className={`flex items-center gap-3 p-4 rounded-xl border transition-all duration-200 ${
@@ -161,8 +159,10 @@ export default function BookingForm() {
                         ✦
                       </div>
                       <div className="text-start">
-                        <p className={`text-sm font-bold ${form.barber === 'any' ? 'text-gold' : 'text-foreground'}`}>Any Barber</p>
-                        <p className="text-[11px] text-muted">First available</p>
+                        <p className={`text-sm font-bold ${form.barber === 'any' ? 'text-gold' : 'text-foreground'}`}>
+                          {t('Any Barber')}
+                        </p>
+                        <p className="text-[11px] text-muted">{t('First available')}</p>
                       </div>
                       {form.barber === 'any' && <FaCheck className="text-gold text-xs ms-auto" />}
                     </button>
@@ -179,7 +179,9 @@ export default function BookingForm() {
                           <Image src={b.image} alt={b.name} fill className="object-cover object-top" />
                         </div>
                         <div className="text-start flex-1 min-w-0">
-                          <p className={`text-sm font-bold truncate ${form.barber === b.id ? 'text-gold' : 'text-foreground'}`}>{b.name}</p>
+                          <p className={`text-sm font-bold truncate ${form.barber === b.id ? 'text-gold' : 'text-foreground'}`}>
+                            {b.name}
+                          </p>
                           <div className="flex items-center gap-1 text-[11px] text-muted">
                             <FaStar className="text-gold text-[9px]" /> {b.rating} · {b.experience}
                           </div>
@@ -191,14 +193,13 @@ export default function BookingForm() {
                 </>
               )}
 
-              {/* ── Step 3: Date & Time ── */}
+              {/* Step 3: Date & Time */}
               {step === 3 && (
                 <>
-                  <StepHeading step={3} title="Pick Date & Time" subtitle="Choose a slot that works for you." />
-
+                  <StepHeading step={3} titleKey="Pick Date & Time" subtitleKey="Choose a slot that works for you." t={t} />
                   <div className="flex flex-col gap-4">
                     <div>
-                      <label className={labelClass}>Date</label>
+                      <label className={labelClass}>{t('Date')}</label>
                       <input
                         type="date"
                         min={todayStr()}
@@ -207,9 +208,8 @@ export default function BookingForm() {
                         className={inputClass}
                       />
                     </div>
-
                     <div>
-                      <label className={labelClass}>Time Slot</label>
+                      <label className={labelClass}>{t('Time Slot')}</label>
                       <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                         {timeSlots.map(slot => (
                           <button
@@ -230,24 +230,23 @@ export default function BookingForm() {
                 </>
               )}
 
-              {/* ── Step 4: Personal Info ── */}
+              {/* Step 4: Personal Info */}
               {step === 4 && (
                 <>
-                  <StepHeading step={4} title="Your Details" subtitle="Almost there — just a couple more details." />
-
+                  <StepHeading step={4} titleKey="Your Details" subtitleKey="Almost there — just a couple more details." t={t} />
                   <div className="flex flex-col gap-4">
                     <div>
-                      <label className={labelClass}>Full Name</label>
+                      <label className={labelClass}>{t('Full Name')}</label>
                       <input
                         type="text"
-                        placeholder="e.g. Ahmed Al-Mansoor"
+                        placeholder={t('e.g. Ahmed Al-Mansoor')}
                         value={form.name}
                         onChange={e => update('name', e.target.value)}
                         className={inputClass}
                       />
                     </div>
                     <div>
-                      <label className={labelClass}>Phone Number</label>
+                      <label className={labelClass}>{t('Phone Number')}</label>
                       <input
                         type="tel"
                         placeholder="+966 5X XXX XXXX"
@@ -257,13 +256,15 @@ export default function BookingForm() {
                       />
                     </div>
 
-                    {/* Summary card */}
+                    {/* Summary */}
                     <div className="bg-background border border-border rounded-xl p-4 text-xs text-muted space-y-1.5">
-                      <p className="text-foreground font-bold text-sm mb-2 uppercase tracking-wide">Booking Summary</p>
-                      <SummaryRow label="Service"  value={services.find(s => s.id === form.service)?.label} />
-                      <SummaryRow label="Barber"   value={form.barber === 'any' ? 'Any available' : allBarbers.find(b => b.id === form.barber)?.name} />
-                      <SummaryRow label="Date"     value={form.date} />
-                      <SummaryRow label="Time"     value={form.time} />
+                      <p className="text-foreground font-bold text-sm mb-2 uppercase tracking-wide">
+                        {t('Booking Summary')}
+                      </p>
+                      <SummaryRow label={t('Service_summary')}  value={t(services.find(s => s.id === form.service)?.label ?? '')} />
+                      <SummaryRow label={t('Barber_summary')}   value={form.barber === 'any' ? t('Any available') : allBarbers.find(b => b.id === form.barber)?.name} />
+                      <SummaryRow label={t('Date_summary')}     value={form.date} />
+                      <SummaryRow label={t('Time_summary')}     value={form.time} />
                     </div>
                   </div>
                 </>
@@ -272,14 +273,14 @@ export default function BookingForm() {
             </motion.div>
           </AnimatePresence>
 
-          {/* ── Navigation ── */}
+          {/* Navigation */}
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
             <button
               onClick={goPrev}
               disabled={step === 1}
               className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-muted hover:text-gold hover:border-gold text-xs font-bold uppercase tracking-wider transition-all duration-200 disabled:opacity-30 disabled:pointer-events-none"
             >
-              <FaChevronLeft className="text-[10px]" /> Back
+              <FaChevronLeft className="text-[10px]" /> {t('Back')}
             </button>
 
             {step < 4 ? (
@@ -288,7 +289,7 @@ export default function BookingForm() {
                 disabled={!canNext()}
                 className="flex items-center gap-2 px-7 py-2.5 rounded-full bg-gold hover:bg-gold-light text-background text-xs font-extrabold uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-gold/30 disabled:opacity-40 disabled:pointer-events-none"
               >
-                Next <FaChevronRight className="text-[10px]" />
+                {t('Next')} <FaChevronRight className="text-[10px]" />
               </button>
             ) : (
               <a
@@ -302,39 +303,45 @@ export default function BookingForm() {
                 }`}
               >
                 <FaWhatsapp className="text-base" />
-                Confirm via WhatsApp
+                {t('Confirm via WhatsApp')}
               </a>
             )}
           </div>
         </div>
       </div>
 
-      {/* ── Direct contact buttons ── */}
+      {/* Direct contact buttons */}
       <div className="mt-6 flex flex-col sm:flex-row gap-3">
         <a
           href={`tel:${SHOP_PHONE}`}
           className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl border border-border bg-card text-muted hover:text-gold hover:border-gold text-sm font-bold uppercase tracking-wider transition-all duration-200"
         >
-          <FaPhone className="text-gold" /> Call Us Directly
+          <FaPhone className="text-gold" /> {t('Call Us Directly')}
         </a>
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank" rel="noreferrer"
           className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl border border-emerald-600/30 bg-emerald-600/10 text-emerald-400 hover:bg-emerald-600/20 text-sm font-bold uppercase tracking-wider transition-all duration-200"
         >
-          <FaWhatsapp className="text-base" /> WhatsApp Us
+          <FaWhatsapp className="text-base" /> {t('WhatsApp Us')}
         </a>
       </div>
     </div>
   )
 }
 
-function StepHeading({ step, title, subtitle }) {
+function StepHeading({ step, titleKey, subtitleKey, subtitle, t }) {
   return (
     <div className="mb-2">
-      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-1">Step {step} of 4</p>
-      <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground">{title}</h3>
-      <p className="text-muted text-sm mt-1">{subtitle}</p>
+      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-1">
+        {t('Step')} {step} {t('of 4')}
+      </p>
+      <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground">
+        {t(titleKey)}
+      </h3>
+      <p className="text-muted text-sm mt-1">
+        {subtitle ?? t(subtitleKey)}
+      </p>
     </div>
   )
 }

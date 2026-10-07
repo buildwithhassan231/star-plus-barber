@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 import { FaClock, FaCalendarCheck, FaFire, FaCrown, FaGem } from 'react-icons/fa'
 import { GiScissors, GiRazorBlade, GiComb } from 'react-icons/gi'
 import { MdSpa } from 'react-icons/md'
@@ -9,56 +10,56 @@ import { MdSpa } from 'react-icons/md'
 const combos = [
   {
     id: 'c1',
-    badge: 'Most Popular',
+    badgeKey: 'Most Popular_badge',
     badgeIcon: <FaFire />,
     highlight: true,
-    name: 'Signature Combo',
-    tagline: 'Haircut + Beard',
+    nameKey: 'Signature Combo',
+    taglineKey: 'Haircut + Beard_tagline',
     includes: [
-      { icon: <GiScissors />, text: 'Royal Fade Haircut' },
-      { icon: <GiRazorBlade />, text: 'Beard Sculpting & Line-up' },
-      { icon: <MdSpa />, text: 'Hot Towel Finish' },
+      { icon: <GiScissors />,    textKey: 'Royal Fade Haircut' },
+      { icon: <GiRazorBlade />,  textKey: 'Beard Sculpting & Line-up' },
+      { icon: <MdSpa />,         textKey: 'Hot Towel Finish' },
     ],
     price: 160,
     originalPrice: 180,
     time: 75,
-    note: null,
+    noteKey: null,
   },
   {
     id: 'c2',
-    badge: 'Best Value',
+    badgeKey: 'Best Value',
     badgeIcon: <FaCrown />,
     highlight: false,
-    name: 'Premium Groom',
-    tagline: 'Haircut + Beard + Facial',
+    nameKey: 'Premium Groom Package',
+    taglineKey: 'Haircut + Beard + Facial',
     includes: [
-      { icon: <GiScissors />, text: 'Precision Haircut & Style' },
-      { icon: <GiRazorBlade />, text: 'Full Beard Sculpting' },
-      { icon: <MdSpa />, text: 'Executive Facial & Scrub' },
-      { icon: <GiComb />, text: 'Scalp Massage' },
+      { icon: <GiScissors />,    textKey: 'Precision Haircut & Style' },
+      { icon: <GiRazorBlade />,  textKey: 'Full Beard Sculpting' },
+      { icon: <MdSpa />,         textKey: 'Executive Facial & Scrub_combo' },
+      { icon: <GiComb />,        textKey: 'Scalp Massage' },
     ],
     price: 280,
     originalPrice: 330,
     time: 120,
-    note: 'Prices may vary by hair length',
+    noteKey: 'Prices may vary by hair length',
   },
   {
     id: 'c3',
-    badge: 'VIP',
+    badgeKey: 'VIP',
     badgeIcon: <FaGem />,
     highlight: false,
-    name: 'Royal VIP Package',
-    tagline: 'Full Grooming Experience',
+    nameKey: 'Royal VIP Package',
+    taglineKey: 'Full Grooming Experience',
     includes: [
-      { icon: <GiScissors />, text: 'Royal Haircut & Blow Dry' },
-      { icon: <GiRazorBlade />, text: 'Beard Shaping & Hot Towel' },
-      { icon: <MdSpa />, text: 'Facial + Keratin Treatment' },
-      { icon: <GiComb />, text: 'Head Massage & Mani-Pedi' },
+      { icon: <GiScissors />,    textKey: 'Royal Haircut & Blow Dry' },
+      { icon: <GiRazorBlade />,  textKey: 'Beard Shaping & Hot Towel' },
+      { icon: <MdSpa />,         textKey: 'Facial + Keratin Treatment' },
+      { icon: <GiComb />,        textKey: 'Head Massage & Mani-Pedi' },
     ],
     price: 450,
     originalPrice: 540,
     time: 180,
-    note: 'Prices may vary by hair length',
+    noteKey: 'Prices may vary by hair length',
   },
 ]
 
@@ -71,10 +72,11 @@ const cardVariants = {
 }
 
 export default function ComboPackages() {
+  const { t } = useTranslation()
+
   return (
     <section className="section w-full bg-surface px-4 sm:px-6 lg:px-8 relative overflow-hidden">
 
-      {/* Ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gold/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -88,18 +90,19 @@ export default function ComboPackages() {
           transition={{ duration: 0.6 }}
         >
           <span className="text-xs font-bold uppercase tracking-[0.25em] text-gold mb-3 block">
-            Save More, Look Better
+            {t('Save More, Look Better')}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">
-            Combo <span className="text-gold-gradient">Packages</span>
+            {t('Combo_heading')}{' '}
+            <span className="text-gold-gradient">{t('Combo_gradient')}</span>
           </h2>
           <div className="w-16 h-[3px] bg-gold mx-auto rounded-full mb-4" />
           <p className="text-muted text-sm sm:text-base max-w-xl mx-auto">
-            Bundle your favourite services and save — crafted for the gentleman who wants it all.
+            {t('Bundle your favourite services and save — crafted for the gentleman who wants it all.')}
           </p>
         </motion.div>
 
-        {/* Cards grid */}
+        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {combos.map((combo, i) => (
             <motion.div
@@ -115,7 +118,6 @@ export default function ComboPackages() {
                   : 'bg-card border-border hover:border-gold/50'
               }`}
             >
-              {/* Highlight top glow bar */}
               {combo.highlight && (
                 <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
               )}
@@ -125,7 +127,7 @@ export default function ComboPackages() {
                 combo.highlight ? 'bg-gold text-background' : 'bg-gold/15 text-gold border border-gold/30'
               }`}>
                 <span>{combo.badgeIcon}</span>
-                {combo.badge}
+                {t(combo.badgeKey)}
               </div>
 
               <div className="p-6 sm:p-8 flex flex-col flex-1 gap-5">
@@ -133,24 +135,23 @@ export default function ComboPackages() {
                 {/* Name & tagline */}
                 <div className="pe-20">
                   <h3 className="text-lg sm:text-xl font-black uppercase tracking-wide text-foreground mb-1">
-                    {combo.name}
+                    {t(combo.nameKey)}
                   </h3>
                   <p className="text-xs text-gold font-semibold uppercase tracking-widest">
-                    {combo.tagline}
+                    {t(combo.taglineKey)}
                   </p>
                 </div>
 
-                {/* Divider */}
                 <div className="h-px bg-border" />
 
-                {/* Includes list */}
+                {/* Includes */}
                 <ul className="flex flex-col gap-2.5 flex-1">
                   {combo.includes.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-3 text-sm text-muted">
                       <span className="w-7 h-7 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-xs flex-shrink-0">
                         {item.icon}
                       </span>
-                      {item.text}
+                      {t(item.textKey)}
                     </li>
                   ))}
                 </ul>
@@ -162,21 +163,23 @@ export default function ComboPackages() {
                       <span className="text-2xl sm:text-3xl font-black text-gold">{combo.price}</span>
                       <span className="text-xs text-muted font-semibold">SAR</span>
                     </div>
-                    <span className="text-xs text-muted line-through">{combo.originalPrice} SAR</span>
-                    <span className="ms-2 text-xs font-bold text-emerald-400">
-                      Save {combo.originalPrice - combo.price} SAR
-                    </span>
+                    <div className="flex items-center gap-1 flex-wrap">
+                      <span className="text-xs text-muted line-through">{combo.originalPrice} SAR</span>
+                      <span className="ms-1 text-xs font-bold text-emerald-400">
+                        {t('Save')} {combo.originalPrice - combo.price} SAR
+                      </span>
+                    </div>
                   </div>
                   <div className="flex items-center gap-1.5 text-xs text-muted">
                     <FaClock className="text-gold" />
-                    {combo.time} min
+                    {combo.time} {t('min')}
                   </div>
                 </div>
 
                 {/* Note */}
-                {combo.note && (
+                {combo.noteKey && (
                   <p className="text-[11px] text-muted/70 italic border-s-2 border-gold/30 ps-3">
-                    * {combo.note}
+                    * {t(combo.noteKey)}
                   </p>
                 )}
 
@@ -190,7 +193,7 @@ export default function ComboPackages() {
                   }`}
                 >
                   <FaCalendarCheck />
-                  Book This Package
+                  {t('Book This Package')}
                 </Link>
 
               </div>
