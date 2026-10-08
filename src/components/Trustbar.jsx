@@ -17,15 +17,35 @@ const item = {
 const Trustbar = () => {
   const { t } = useTranslation()
 
+  // SEO-enriched text keys with local entity signals
   const trustItems = [
-    { icon: <FaUserCheck className="text-gold text-lg md:text-xl" />, titleKey: 'Experienced Barbers',  descKey: 'Master Stylists & Precision Cutters' },
-    { icon: <FaPumpSoap  className="text-gold text-lg md:text-xl" />, titleKey: 'Clean & Hygienic',     descKey: '100% Sanitized Tools & Towels' },
-    { icon: <FaClock     className="text-gold text-lg md:text-xl" />, titleKey: 'Late Night Hours',      descKey: 'Open Daily Until 3:00 AM' },
-    { icon: <FaDoorOpen  className="text-gold text-lg md:text-xl" />, titleKey: 'Walk-ins Welcome',      descKey: 'No Prior Appointment Needed' },
+    { 
+      icon: <FaUserCheck className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
+      titleKey: 'Master Barbers Riyadh', 
+      descKey: 'Precision Cutters & Expert Hair Stylists' 
+    },
+    { 
+      icon: <FaPumpSoap className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
+      titleKey: 'Clean & Hygienic',    
+      descKey: 'Sanitized Tools & Royal Towel Care' 
+    },
+    { 
+      icon: <FaClock className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
+      titleKey: 'Late Night Barbering',     
+      descKey: 'Open Daily Until 3:00 AM' 
+    },
+    { 
+      icon: <FaDoorOpen className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
+      titleKey: 'Walk-Ins Welcome',     
+      descKey: 'No Prior Appointment Needed' 
+    },
   ]
 
   return (
-    <div className="w-full bg-surface border-y border-border py-4 md:py-6 px-4 relative z-20 shadow-xl">
+    <aside 
+      aria-label="Star Plus Barber Highlights" 
+      className="w-full bg-surface border-y border-border py-4 md:py-6 px-4 relative z-20 shadow-xl"
+    >
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 items-center"
@@ -40,22 +60,24 @@ const Trustbar = () => {
               variants={item}
               className="flex items-center gap-3 md:gap-4 p-2.5 sm:p-3 rounded-xl bg-card border border-border hover:border-gold/40 transition-all duration-300 group"
             >
-              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-gold/20 group-hover:border-gold/50 transition-all duration-300">
+              <div 
+                className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-gold/20 group-hover:border-gold/50 transition-all duration-300"
+              >
                 {ti.icon}
               </div>
               <div className="flex flex-col">
-                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-foreground group-hover:text-gold transition-colors duration-200">
+                <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-foreground group-hover:text-gold transition-colors duration-200">
                   {t(ti.titleKey)}
-                </span>
-                <span className="text-[10px] sm:text-xs text-muted line-clamp-1 font-medium">
+                </h3>
+                <p className="text-[10px] sm:text-xs text-muted line-clamp-1 font-medium m-0">
                   {t(ti.descKey)}
-                </span>
+                </p>
               </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
-    </div>
+    </aside>
   )
 }
 

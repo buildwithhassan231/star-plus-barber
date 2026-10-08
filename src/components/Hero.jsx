@@ -10,7 +10,7 @@ const Hero = () => {
   const { t } = useTranslation()
 
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '966576984355'
-  const whatsappMessage = encodeURIComponent('Hello! I want to book an appointment.')
+  const whatsappMessage = encodeURIComponent('Hello! I want to book an appointment at Star Plus Barber.')
 
   return (
     <section className="relative w-full h-[90vh] min-h-[600px] max-h-[900px] flex items-center justify-center overflow-hidden text-white">
@@ -27,8 +27,8 @@ const Hero = () => {
           </video>
         ) : (
           <Image
-            src="hero.jpg"
-            alt="Premium Grooming Experience in Riyadh"
+            src="/hero.jpg"
+            alt="Star Plus Barber - Premium Barber Shop in Riyadh"
             fill priority
             className="object-cover object-center scale-105"
           />
@@ -40,11 +40,11 @@ const Hero = () => {
       {/* Main Hero Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center space-y-2 pt-20">
 
-        {/* Main Heading */}
+        {/* Main Heading (SEO Optimized H1) */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white leading-tight drop-shadow-md max-w-4xl">
           {t("Riyadh's")}{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
-            {t("Premium Grooming")}
+            {t("Premium Barber & Grooming")}
           </span>{' '}
           {t("Experience")}
         </h1>
@@ -66,7 +66,8 @@ const Hero = () => {
 
           <a
             href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-            target="_blank" rel="noopener noreferrer"
+            target="_blank" 
+            rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm uppercase tracking-wider rounded-full shadow-lg hover:shadow-emerald-600/20 transform hover:-translate-y-0.5 transition-all duration-300"
           >
             <FaWhatsapp className="text-lg" />
