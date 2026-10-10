@@ -17,27 +17,26 @@ const item = {
 const Trustbar = () => {
   const { t } = useTranslation()
 
-  // SEO-enriched text keys with local entity signals
   const trustItems = [
     { 
       icon: <FaUserCheck className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
       titleKey: 'Master Barbers Riyadh', 
-      descKey: 'Precision Cutters & Expert Hair Stylists' 
+      descKey:  'Precision Cutters & Expert Hair Stylists',
     },
     { 
       icon: <FaPumpSoap className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
       titleKey: 'Clean & Hygienic',    
-      descKey: 'Sanitized Tools & Royal Towel Care' 
+      descKey:  'Sanitized Tools & Royal Towel Care',
     },
     { 
       icon: <FaClock className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
       titleKey: 'Late Night Barbering',     
-      descKey: 'Open Daily Until 3:00 AM' 
+      descKey:  'Open Daily Until 3:00 AM',
     },
     { 
       icon: <FaDoorOpen className="text-gold text-lg md:text-xl" aria-hidden="true" />, 
       titleKey: 'Walk-Ins Welcome',     
-      descKey: 'No Prior Appointment Needed' 
+      descKey:  'No Prior Appointment Needed',
     },
   ]
 
