@@ -9,7 +9,7 @@ const Hero = () => {
   const [useVideo, setUseVideo] = useState(true)
   const { t } = useTranslation()
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '966576984355'
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '123456789'
   const whatsappMessage = encodeURIComponent('Hello! I want to book an appointment at Star Plus Barber.')
 
   return (

@@ -26,5 +26,5 @@ export const hours = [
   { day: 'Daily (Late Night)',time: 'Open till 3:00 AM' },
 ]
 
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '966576984355'
-export const SHOP_PHONE      = process.env.NEXT_PUBLIC_SHOP_PHONE    || '+966576984355'
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '123456789'
+export const SHOP_PHONE      = process.env.NEXT_PUBLIC_SHOP_PHONE    || '+12345678'

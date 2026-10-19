@@ -2,7 +2,7 @@
 
 import { FaWhatsapp } from 'react-icons/fa'
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '966576984355'
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '12345678'
 const WHATSAPP_MESSAGE = encodeURIComponent('Hello! I want to book an appointment.')
 
 const WhatsAppButton = () => {
