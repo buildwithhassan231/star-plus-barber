@@ -1,4 +1,11 @@
 // Shared data for booking form
+// Phone/WhatsApp and hours are imported from the single source of truth.
+import {
+  SHOP_PHONE_DISPLAY,
+  SHOP_PHONE_DIGITS,
+  WHATSAPP_DIGITS,
+  OPENING_HOURS,
+} from '@/config/siteConfig'
 
 export const services = [
   { id: 'haircut',      label: 'Royal Haircut & Style',        price: '120 SAR', time: '30 min' },
@@ -10,21 +17,16 @@ export const services = [
 ]
 
 export const timeSlots = [
-  '10:00 AM', '11:00 AM', '12:00 PM',
-  '01:00 PM', '02:00 PM', '03:00 PM',
-  '04:00 PM', '05:00 PM', '06:00 PM',
-  '07:00 PM', '08:00 PM', '09:00 PM',
-  '10:00 PM', '11:00 PM', '12:00 AM',
-  '01:00 AM', '02:00 AM',
+  '12:00 PM', '01:00 PM', '02:00 PM',
+  '03:00 PM', '04:00 PM', '05:00 PM',
+  '06:00 PM', '07:00 PM', '08:00 PM',
+  '09:00 PM', '10:00 PM', '11:00 PM',
+  '12:00 AM', '01:00 AM', '02:00 AM',
 ]
 
-export const hours = [
-  { day: 'Monday – Thursday', time: '10:00 AM – 7:00 PM' },
-  { day: 'Friday',            time: '10:00 AM – Late' },
-  { day: 'Saturday',          time: 'CLOSED' },
-  { day: 'Sunday',            time: '10:00 AM – 5:00 PM' },
-  { day: 'Daily (Late Night)',time: 'Open till 3:00 AM' },
-]
+// Re-export opening hours from config so WalkInInfo reads from one place
+export const hours = OPENING_HOURS
 
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '123456789'
-export const SHOP_PHONE      = process.env.NEXT_PUBLIC_SHOP_PHONE    || '+12345678'
+// Phone & WhatsApp — re-exported from config
+export const SHOP_PHONE      = SHOP_PHONE_DISPLAY
+export const WHATSAPP_NUMBER = WHATSAPP_DIGITS

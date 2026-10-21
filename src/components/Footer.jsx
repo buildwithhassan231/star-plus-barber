@@ -7,6 +7,11 @@ import { useTranslation } from 'react-i18next'
 import { FaChevronUp, FaMapMarkerAlt, FaPhone, FaClock } from 'react-icons/fa'
 import { SiInstagram, SiSnapchat, SiTiktok } from 'react-icons/si'
 import AnimateIn from './AnimateIn'
+import {
+  SHOP_PHONE_DISPLAY,
+  SHOP_PHONE_DIGITS,
+  OPENING_HOURS,
+} from '@/config/siteConfig'
 
 const quickLinksData = [
   { nameKey: 'Home',              href: '/' },
@@ -22,13 +27,6 @@ const socials = [
   { label: 'Instagram', href: 'https://instagram.com', icon: <SiInstagram />, hover: 'hover:text-pink-400 hover:border-pink-400' },
   { label: 'Snapchat',  href: 'https://snapchat.com',  icon: <SiSnapchat />,  hover: 'hover:text-yellow-300 hover:border-yellow-300' },
   { label: 'TikTok',    href: 'https://tiktok.com',    icon: <SiTiktok />,    hover: 'hover:text-foreground hover:border-foreground' },
-]
-
-const hoursData = [
-  { dayKey: 'Mon – Thu', timeKey: '10:00 AM – 7:00 PM' },
-  { dayKey: 'Friday',    timeKey: '10:00 AM – TBD' },
-  { dayKey: 'Saturday',  timeKey: 'CLOSED' },
-  { dayKey: 'Sunday',    timeKey: '10:00 AM – 5:00 PM' },
 ]
 
 const Footer = () => {
@@ -101,35 +99,37 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Col 3 — Hours */}
+            {/* Col 3 — Hours (reads from OPENING_HOURS config) */}
             <div className="flex flex-col gap-4">
+              {/* "Working Hours" heading */}
               <h3 className="text-foreground font-bold uppercase tracking-widest text-xs after:block after:w-8 after:h-[2px] after:bg-gold after:mt-2">
-                {t('Hours_footer')}
+                {t('Working Hours')}
               </h3>
               <ul className="flex flex-col gap-2.5">
-                {hoursData.map(({ dayKey, timeKey }) => (
-                  <li key={dayKey} className="flex justify-between items-center text-xs border-b border-border/50 pb-2 last:border-0">
-                    <span className="text-muted">{t(dayKey)}</span>
+                {OPENING_HOURS.map(({ day, time, closed }) => (
+                  <li key={day} className="flex justify-between items-center text-xs border-b border-border/50 pb-2 last:border-0">
+                    <span className="text-muted">{t(day)}</span>
                     <span className={`font-semibold ${
-                      timeKey === 'CLOSED'          ? 'text-red-400'  :
-                      timeKey.includes('3 AM')      ? 'text-gold'     :
+                      closed                    ? 'text-red-400'  :
+                      time.includes('3:00 AM')  ? 'text-gold'     :
                       'text-foreground'
                     }`}>
-                      {t(timeKey)}
+                      {t(time)}
                     </span>
                   </li>
                 ))}
               </ul>
               <div className="flex items-center gap-2 mt-1 px-3 py-2 rounded-lg bg-gold/10 border border-gold/20">
                 <FaClock className="text-gold text-xs flex-shrink-0" />
-                <span className="text-gold text-xs font-semibold">{t('Open daily till 3:00 AM')}</span>
+                <span className="text-gold text-xs font-semibold">{t('Open Daily Until 3:00 AM')}</span>
               </div>
             </div>
 
             {/* Col 4 — Find Us */}
             <div className="flex flex-col gap-4">
+              {/* "Find Us" heading — no _footer suffix, clean text */}
               <h3 className="text-foreground font-bold uppercase tracking-widest text-xs after:block after:w-8 after:h-[2px] after:bg-gold after:mt-2">
-                {t('Find Us_footer')}
+                {t('Find Us')}
               </h3>
 
               <div className="flex flex-col gap-3 text-sm">
@@ -142,8 +142,8 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-2.5 text-muted">
                   <FaPhone className="text-gold flex-shrink-0" />
-                  <a href="tel:+966567888" className="hover:text-gold transition-colors">
-                    +966 34 67 998
+                  <a href={`tel:${SHOP_PHONE_DIGITS}`} className="hover:text-gold transition-colors">
+                    {SHOP_PHONE_DISPLAY}
                   </a>
                 </div>
               </div>

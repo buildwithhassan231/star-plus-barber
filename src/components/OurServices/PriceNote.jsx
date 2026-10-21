@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { FaInfoCircle, FaPhone, FaWhatsapp } from 'react-icons/fa'
+import { SHOP_PHONE_DIGITS, WHATSAPP_DIGITS } from '@/config/siteConfig'
 
 export default function PriceNote() {
   const { t } = useTranslation()

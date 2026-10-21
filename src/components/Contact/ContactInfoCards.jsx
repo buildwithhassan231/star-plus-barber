@@ -3,7 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import AnimateIn from '@/components/AnimateIn'
 import { FaPhone, FaWhatsapp, FaMapMarkerAlt, FaClock } from 'react-icons/fa'
-import { PHONE, WHATSAPP, ADDRESS, hours } from './contactData'
+import { PHONE, WHATSAPP, hours } from './contactData'
 
 export default function ContactInfoCards() {
   const { t } = useTranslation()
@@ -11,10 +11,11 @@ export default function ContactInfoCards() {
   const cards = [
     {
       icon: <FaPhone />,
-      labelKey: 'Call Us_card',
+      // "Call Us" — clean key without suffix
+      labelKey: 'Call Us',
       value: PHONE,
       subKey: 'Available during working hours',
-      href: `tel:${PHONE}`,
+      href: `tel:${PHONE.replace(/\s/g, '')}`,
       color: 'text-blue-400 bg-blue-400/10 border-blue-400/20 group-hover:bg-blue-400/15 group-hover:border-blue-400/40',
       isHours: false,
     },
@@ -40,7 +41,7 @@ export default function ContactInfoCards() {
     },
     {
       icon: <FaClock />,
-      labelKey: 'Hours_card',
+      labelKey: 'Working Hours',
       valueKey: 'Open Daily',
       subKey: 'Until 3:00 AM every night',
       href: null,
@@ -75,7 +76,7 @@ export default function ContactInfoCards() {
                 </p>
                 <p className="text-muted text-xs mt-0.5">{t(card.subKey)}</p>
 
-                {/* Hours mini table */}
+                {/* Hours mini table — reads from config via contactData */}
                 {card.isHours && (
                   <div className="mt-3 flex flex-col gap-1">
                     {hours.map(h => (

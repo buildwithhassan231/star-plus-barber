@@ -1,14 +1,14 @@
 'use client'
 
 import { FaWhatsapp } from 'react-icons/fa'
+import { WHATSAPP_DIGITS } from '@/config/siteConfig'
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '12345678'
 const WHATSAPP_MESSAGE = encodeURIComponent('Hello! I want to book an appointment.')
 
 const WhatsAppButton = () => {
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
+      href={`https://wa.me/${WHATSAPP_DIGITS}?text=${WHATSAPP_MESSAGE}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

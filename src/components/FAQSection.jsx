@@ -27,7 +27,7 @@ const faqData = [
   {
     id: '05',
     questionKey: 'What are your working hours?',
-    answerKey:   'We are open 7 days a week. Saturday through Thursday from 10:00 AM to 11:00 PM, and on Friday from 1:00 PM to 12:00 AM midnight.',
+    answerKey:   'We are open daily from 12:00 PM to 3:00 AM.',
   },
 ]
 
