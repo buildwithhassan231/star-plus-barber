@@ -14,6 +14,7 @@ export default function ContactPage() {
       />
 
       {/* Info cards */}
+      {/* Info cards */}
       <section className="section w-full bg-background px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <ContactInfoCards />
